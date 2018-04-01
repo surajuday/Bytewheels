@@ -1,0 +1,94 @@
+<mat-progress-bar mode="determinate" value="{{progress}}"></mat-progress-bar>
+<br>
+<h4 align="center">
+  <img style="max-height:150px; max-width:390px; position:relative" src="assets/header.png">
+</h4>
+
+
+<div class="row container-fluid" style="height:500px;" align="center">
+  <form class="container" (ngSubmit)="showCars()">
+    <div class="row">
+      <div [@popOverState]="progress==33" class="col-lg-12" *ngIf="progress==33" style="padding-top:50px;padding-left:180px;" align="center">
+        <div class="row">
+          <div class="col-lg-10" style="align-content: center">
+            <mat-form-field class="example-full-width">
+              <input (dateInput)="addFromDate($event)" matInput [min]="minDate_from" [max]="maxDate" [matDatepicker]="picker1" placeholder="From date"
+                autofocus>
+              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-datepicker #picker1 disabled="false"></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-10" style="align-content: center">
+            <mat-form-field class="example-full-width">
+              <input (dateInput)="addToDate($event)" matInput [min]="minDate_to" [max]="maxDate" [matDatepicker]="picker" placeholder="To date">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker disabled="false"></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="submit-container" style="padding-right:156px;" align="center">
+          <button mat-raised-button color="primary" class="btn login-button" type="submit">Submit</button>
+        </div>
+
+      </div>
+      <div class="col-lg-12" [@popOverState]="progress==66">
+        <app-car-list *ngIf="progress==66" (carEventEmitter)="carSelected($event)" (backEvent)="goBackHome($event)" [cars]="cars"></app-car-list>
+      </div>
+      <div class="col-lg-12" [@popOverState]="progress==99" *ngIf="progress==99">
+        <div class="bookingList">
+          <div class="col-md-2">
+            <button style="margin-right: 575px;" mat-raised-button> Back </button>
+          </div>
+          <div class="col-md-10">
+            <div class="container" style="padding: 0px 855px 0px 0px;">
+              <app-booking [carType]="selectedCar.getType()" [carName]="selectedCar.getName()" [amountToBePaid]="amount" [booking]="bookingBean"
+                (bookedBean)="openSnackBar($event)"></app-booking>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-lg-12" *ngIf="progress==100" [@popOverState]="progress==100">
+        <!-- <div *ngIf="spinner">
+          <br>
+          <br>
+          <mat-spinner style="opacity: 75%;"></mat-spinner>
+        </div> -->
+        <app-invoice [invoiceBean]="invoice" (goBackEvent)="goBackHome($event)"></app-invoice>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- <app-car-list></app-car-list> -->
+<!-- <form class="container" style="padding-top:10px;" (ngSubmit)="showCars()">
+  <div class="row container" style="align-content:center;">
+    <div class="col-lg-12" style="align-items: center;padding-left:460px;padding-top:150px;">
+      <div class="row">
+        <div class="col-lg-12">
+          <mat-form-field class="example-full-width">
+            <input (dateInput)="addFromDate($event)" matInput [min]="minDate_from" [max]="maxDate" [matDatepicker]="picker1" placeholder="From date"
+              disabled autofocus>
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1 disabled="false"></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-10" style="align-content: center">
+          <mat-form-field class="example-full-width">
+            <input (dateInput)="addToDate($event)" matInput [min]="minDate_to" [max]="maxDate" [matDatepicker]="picker" placeholder="To date"
+              disabled>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker disabled="false"></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="submit-container" style="padding-left: 60px;">
+        <button class="btn login-button" type="submit">submit</button>
+      </div>
+    </div>
+  </div>
+</form> -->

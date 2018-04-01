@@ -1,0 +1,94 @@
+<div *ngIf="null==invoice">
+  <br>
+  <br>
+  <mat-spinner style="opacity: 75%;"></mat-spinner>
+</div>
+<div *ngIf="invoice!=null" style="padding-left:-100px;">
+  <div class="invoice-box">
+    <table cellpadding="0" cellspacing="0">
+      <tr class="top">
+        <td colspan="5">
+          <table>
+            <tr>
+              <td class="title">
+                <img align="left" src="assets/header.png" style="width:100%; max-width:300px;">
+              </td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>
+                <b>Booking #:{{invoice.bookingId}}
+                </b>
+                <br>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr class="heading">
+        <td>
+          Payment Method
+        </td>
+      </tr>
+      <tr class="details">
+        <td>
+          On Pickup
+        </td>
+
+      </tr>
+      <tr class="heading">
+        <td>
+          Car Name
+        </td>
+        <td>
+          Car Type
+        </td>
+        <td>
+          From Date
+        </td>
+        <td>
+          To Date
+        </td>
+        <td style="text-align: right">
+          Price
+        </td>
+      </tr>
+
+      <tr class="item">
+        <td>
+          {{invoice.car.name}}
+        </td>
+        <td>
+          {{invoice.car.type}}
+        </td>
+        <td>
+          {{invoice.booking.fromDate}}
+        </td>
+        <td>
+          {{invoice.booking.toDate}}
+        </td>
+        <td style="text-align: right">
+          ${{invoice.booking.amount}}
+        </td>
+      </tr>
+
+      <tr class="total">
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+
+        <td style="text-align: right">
+          Total: ${{invoice.booking.amount}}
+        </td>
+      </tr>
+    </table>
+  </div>
+  <br>
+  <form (ngSubmit)="goToHome()">
+    <div style="padding-left:31px;">
+      <button mat-raised-button color="accent" type="submit">Book another</button>
+    </div>
+    <br>
+  </form>
+</div>

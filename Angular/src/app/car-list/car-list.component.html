@@ -1,0 +1,58 @@
+<form style="padding-top:30px;" (ngSubmit)="back()">
+  <div class="container">
+    <div class="row" [@popOverState]="!typeSelected" *ngIf="!typeSelected">
+      <div class="col-md-3 col-sm-6" *ngFor="let car of cars">
+        <div class="our-team" (click)="selectedType(car)">
+          <div class="pic">
+            <img src="assets/{{car.type}}.png">
+          </div>
+          <h3 class="title">{{car.type}}</h3>
+          <span class="post">Cost/day : {{car.cost}}$</span>
+        </div>
+      </div>
+      <button mat-raised-button color="primary" type="submit">Reset Date</button>
+    </div>
+    <div class="row" [@popOverState]="typeSelected" *ngIf="typeSelected" style="padding-left:150px;">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-2">
+            <button mat-fab (click)="typeSelected=!typeSelected" color="primary">
+              <span color="accent" class="glyphicon glyphicon-chevron-left"></span>
+            </button>
+          </div>
+          <div class="col-sm-10" *ngIf="carsByType.length>=1">
+            <ul *ngFor="let car of carsByType">
+              <div style="height:100px;">
+                <h4 style="text-align: left;">
+                  <span>{{car.type}}</span>
+                  <i class="glyphicon glyphicon-menu-right" style="font-size: 10pt;color: rgb(97, 68, 204);padding: 5px 5px;"> </i>
+                  <span>{{car.name}}</span>
+                </h4>
+                <img align="left" style="width: 169px;height: 151px;" mat-card-md-image src="assets/{{car.name}}.png">
+                <div><h5 style="margin-right: 387px;">Available Cars : <button matTooltip="Book Now!" mat-mini-fab color="primary" type="button" class="hvr-grow" (click)="selectedCar(car)">{{car.id}}</button></h5></div>
+              </div>
+              <!-- <div style="width:200px;padding-right:30px;" class="pull-left">
+                <mat-divider></mat-divider>
+              </div> -->
+              <br>
+              <br>
+              <br>
+              <br>
+              <hr style="width: 500px;margin-right: 311px;height: 2px">
+            </ul>
+          </div>
+          <div class="col-sm-10" *ngIf="carsByType.length==0">
+            <mat-card class="example-card">
+              <!-- <mat-card-header> -->
+                <!-- <mat-card-title> -->
+                  <h4 style="margin-right: 371px;margin-top: 16px;">No cars available in this category for selected dates</h4>
+                <!-- </mat-card-title> -->
+              <!-- </mat-card-header> -->
+            </mat-card>
+            <h4 style="margin-right: 371px;margin-top: 16px;">No cars available in this category for selected dates</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

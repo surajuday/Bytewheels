@@ -1,0 +1,47 @@
+<form class="example-form" (ngSubmit)="sendEmail()">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <h4 style="margin-left: 35px;">{{carType}}
+          <i class="glyphicon glyphicon-menu-right" style="font-size: 10pt;padding: 0px 9px;color:#c6cbe9"></i>{{carName}}</h4>
+      </mat-card-title>
+      <mat-divider style="margin-left: 41px;margin-top: 36px;width: 249px;"></mat-divider>
+      <mat-card-subtitle style="margin-left: -76px;margin-top: 46px">
+        <span> Amount to be paid : {{amount}} $</span>
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-form-field class="pull-left">
+        <input matInput placeholder="Email" [formControl]="emailFormControl" [errorStateMatcher]="matcher" style="margin-right: -41px;">
+        <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+          Please enter a valid email address
+        </mat-error>
+        <mat-error *ngIf="emailFormControl.hasError('required')">
+          Email is
+          <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <div class="submit-container" *ngIf="!emailFormControl.hasError('email') && !emailFormControl.hasError('required')"
+        style="padding-right: 18px;">
+        <button mat-raised-button class="btn" type="submit" [disabled]="!captchaExpired">Send Email</button>
+      </div>
+      <br>
+      <div *ngIf="!captchaExpired && !emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+        <h6>Captcha expires in {{viewCount}} minutes</h6>
+
+        <mat-form-field class="pull-left" [hidden]="isCaptchaSent">
+          <input matInput placeholder="Enter Captcha" [formControl]="captchaFormControl" [errorStateMatcher]="matcher">
+          <mat-hint *ngIf="null==captcha">Captcha sent to {{emailFormControl.value}}</mat-hint>
+        </mat-form-field>
+        <br>
+        <div class="submit-container" *ngIf="!captchaFormControl.hasError('required') && isCaptchaSent"
+          style="padding-right: 12px;">
+          <button mat-raised-button type="button" (click)="submitCaptcha()" style="margin-top: 28px;" [disabled]="showProgress">Confirm</button>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-progress-bar *ngIf="showProgress" mode="indeterminate"></mat-progress-bar>
+    <br>
+  </mat-card>
+</form>

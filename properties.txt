@@ -1,0 +1,10 @@
+jdbc.connectionString=jdbc:mysql://localhost:3306/bytewheels
+jdbc.username=root
+jdbc.password=admin
+mail.smtp.auth=true
+mail.smtp.starttls.enable=true
+mail.smtp.host=smtp.gmail.com
+mail.smtp.port=587
+mail.username=byteTest7986@gmail.com
+mail.password=suraj7986
+captcha.length=8
